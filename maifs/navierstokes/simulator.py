@@ -1,27 +1,27 @@
-# Librairies
-import abc
+# -------------------------------------------------
+#
+#                    Montefiore AI
+#
+#           Fluid Simulator - Navier Stokes (2D)
+#
+# -------------------------------------------------
+# @ Victor Mangeleer
+#
+# -- Librairies --
 import os
 import xarray
-import mgzip
-import seaborn as sns
-import dataclasses
 import numpy as np
-import matplotlib.pyplot as plt
 import moviepy.video.io.ImageSequenceClip
-from IPython.display import Video
 
 import jax
-from   jax_cfd.base import advection
-from   jax_cfd.base import diffusion
-from   jax_cfd.base import forcings
-from   jax_cfd.base import grids
-from   jax_cfd.base import pressure
-from   jax_cfd.base import time_stepping
 import jax.numpy        as jnp
 import jax_cfd.base     as cfd
 import jax_cfd.spectral as spectral
-from   jax_cfd.data import visualization
 
+from   jax_cfd.data import visualization
+from IPython.display import Video
+
+# -- Navier Stokes 2D --
 class SimulatorNavierStokes():
 
     def __init__(self,
@@ -53,7 +53,7 @@ class SimulatorNavierStokes():
         self.v = (reynolds * viscosity)/(self.L * density)
 
         # Simulation domain (square)
-        self.grid = grids.Grid(shape = (size, size), domain = ((0, self.L), (0, self.L)))
+        self.grid = cfd.grids.Grid(shape = (size, size), domain = ((0, self.L), (0, self.L)))
 
         # Timestep (must respect CFL ≈ dt/dx < 1, we arbitrarily set CFL to 0.1)
         self.dt = cfd.equations.stable_time_step(max_velocity = self.v, max_courant_number = 0.1, viscosity = viscosity, grid = self.grid)
@@ -66,7 +66,7 @@ class SimulatorNavierStokes():
                                                                      linear_coefficient  = -0.1,
                                                                      forcing_type        = forcing)
         else:
-            self.forcing_fn = lambda grid: forcings.no_forcing(grid = grid)
+            self.forcing_fn = lambda grid: cfd.forcings.no_forcing(grid = grid)
 
         # Navier-Stokes (1) - Solves for the velocity u
         if predict == "velocity":

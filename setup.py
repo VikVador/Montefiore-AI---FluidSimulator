@@ -14,4 +14,11 @@ setup(
       long_description = LONG_DESCRIPTION,
       packages         = ["maifs",
                           "maifs.navierstokes"],
+      install_requires = ["ipython==8.17.2",
+                          "jax==0.4.11",
+                          "jax_cfd==0.2.0",
+                          "moviepy==1.0.3",
+                          "numpy==1.24.3",
+                          "setuptools==63.4.1",
+                          "xarray==2022.9.0"]
 )
