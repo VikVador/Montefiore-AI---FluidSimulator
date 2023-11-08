@@ -22,7 +22,7 @@ from   jax_cfd.data import visualization
 from IPython.display import Video
 
 # -- Navier Stokes 2D --
-class SimulatorNavierStokes():
+class Simulator():
 
     def __init__(self,
          size:      int   = 256,
@@ -161,10 +161,10 @@ class SimulatorNavierStokes():
             'predict'    : self.predict,
             'forcing'    : self.forcing,
             'max_speed'  : self.v,
-            'dt'   : self.dt,
-            't_min': 0,
-            't_max': samples * self.dt,
-            'unit' : "s",
+            'dt'         : self.dt,
+            't_min'      : 0,
+            't_max'      : samples * self.dt,
+            'unit'       : "s",
         }
 
         # Updating dataset with general information

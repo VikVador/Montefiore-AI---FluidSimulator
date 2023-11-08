@@ -12,6 +12,5 @@ setup(
       author_email     = 'vmangeleer@uliege.be',
       description      = DESCRIPTION,
       long_description = LONG_DESCRIPTION,
-      packages         = ["maifs",
-                          "maifs.navierstokes"],
+      packages         = ["maifs"],
 )
