@@ -60,7 +60,7 @@ class Simulator():
 
         # Forcing (Example: atmospheric wind on the ocean surface)
         if forcing in ["kolmogorov", "taylor"]:
-            self.forcing_fn = cfd.forcings.simple_turbulence_forcing(grid                = grid,
+            self.forcing_fn = cfd.forcings.simple_turbulence_forcing(grid                = self.grid,
                                                                      constant_magnitude  = 1.0,
                                                                      constant_wavenumber = 4.0,
                                                                      linear_coefficient  = -0.1,
@@ -72,8 +72,8 @@ class Simulator():
         if predict == "velocity":
             self.step_fn = cfd.equations.implicit_diffusion_navier_stokes(density   = density,
                                                                           viscosity = viscosity,
-                                                                          grid      = grid,
-                                                                          dt        = dt)
+                                                                          grid      = self.grid,
+                                                                          dt        = self.dt)
         # Navier-Stokes (2) - Solves for the vorticity q
         else:
             self.step_fn = spectral.time_stepping.imex_rk_sil3(
@@ -212,3 +212,9 @@ class Simulator():
         for file in os.listdir(temp_f):
             if file.endswith('.png'):
                 os.remove(f'{temp_f}/' + file)
+
+
+# ------- Testing Zone -------
+if __name__ == "__main__":
+
+    ns_sim = Simulator()
