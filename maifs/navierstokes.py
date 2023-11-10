@@ -9,6 +9,9 @@
 #
 # -- Librairies --
 import os
+
+os.environ["IMAGEIO_FFMPEG_EXE"] = "/usr/bin/ffmpeg"
+
 import xarray
 import numpy as np
 import moviepy.video.io.ImageSequenceClip
@@ -212,9 +215,3 @@ class Simulator():
         for file in os.listdir(temp_f):
             if file.endswith('.png'):
                 os.remove(f'{temp_f}/' + file)
-
-
-# ------- Testing Zone -------
-if __name__ == "__main__":
-
-    ns_sim = Simulator()
